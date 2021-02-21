@@ -4,9 +4,9 @@ The Casting Agency API is responsible for creating and managing movies and actor
 
 ### Roles:
 
--Casting Assistant: Related permissions are view actors and movies.
--Casting Director: Related permissions are view, add, modify, or delete actors.
--Executive Producer: Related permissions are view, add, modify, or delete actors and movies.
+- Casting Assistant: Related permissions are view actors and movies.
+- Casting Director: Related permissions are view, add, modify, or delete actors.
+- Executive Producer: Related permissions are view, add, modify, or delete actors and movies.
 
 # Getting Started
 
@@ -51,7 +51,7 @@ Setting the `FLASK_ENV` variable to `development` will detect file changes and r
 
 ## API Documentation
 
-# GET Endpoints
+###  GET Endpoints
 
 GET '/movies'
 - Retrieves all movies.
@@ -129,7 +129,7 @@ Example:
 }
 
 ```
-# POST Endpoints
+###  POST Endpoints
 
 POST '/movies'
 - Add a new movie.
@@ -166,7 +166,7 @@ Example:
     "success": true
 }
 ```
-# PATCH Endpoint
+### PATCH Endpoint
 
 PATCH '/movies/<int:id>'
 - updates an existing movie in the database.
@@ -206,7 +206,7 @@ Example: curl -X PATCH -H "Authorization: Bearer access_token" -H "Content-Type:
 }
 ```
 
-# DELETE Endpoint
+### DELETE Endpoint
 
 DELETE '/movies/<int:id>'
 - Delete a movie with specified id.
@@ -234,7 +234,7 @@ Example:
     "success": true
 }
 ```
-# Error Handling
+### Error Handling
 401 error
 This error occurs when there is an issue with the authentication.
 
