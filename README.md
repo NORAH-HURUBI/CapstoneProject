@@ -4,9 +4,9 @@ The Casting Agency API is responsible for creating and managing movies and actor
 
 ### Roles:
 
-Casting Assistant: Related permissions are view actors and movies.
-Casting Director: Related permissions are view, add, modify, or delete actors.
-Executive Producer: Related permissions are view, add, modify, or delete actors and movies.
+-Casting Assistant: Related permissions are view actors and movies.
+-Casting Director: Related permissions are view, add, modify, or delete actors.
+-Executive Producer: Related permissions are view, add, modify, or delete actors and movies.
 
 # Getting Started
 
@@ -22,7 +22,7 @@ We recommend working within a virtual environment whenever using Python for proj
 
 #### PIP Dependencies
 
-Once you have your virtual environment setup and running, install dependencies by naviging to the `/backend` directory and running:
+Once you have your virtual environment setup and running, install dependencies by running:
 
 ```bash
 pip install -r requirements.txt
@@ -245,6 +245,8 @@ Example:
     "message": "Authorization header is expected.",
     "success": false
 }
+
+```
 403 error
 This error occurs when user request not include required permission.
 
@@ -255,7 +257,6 @@ Example:
     "message": "Permission not found.",
     "success": false
 }
-
 ```
 404 error 
 This error occurs when server not able to locate resources or requested arguments.
@@ -281,11 +282,10 @@ Example:
 }
 
 ```
-
 ## Testing
 To run the tests, run
+
 ```
 createdb agency_test
-
 python test_app.py
 ```
