@@ -8,6 +8,10 @@ The Casting Agency API is responsible for creating and managing movies and actor
 - Casting Director: Related permissions are view, add, modify, or delete actors.
 - Executive Producer: Related permissions are view, add, modify, or delete actors and movies.
 
+#### Heroku Link: https://agency-hurubi.herokuapp.com
+#### running locally: http://localhost:5000
+#### Authentication : using postman
+
 # Getting Started
 
 ### Installing Dependencies
@@ -40,7 +44,7 @@ This will install all of the required packages we selected within the `requireme
 
 ## Running the server
 
-To run the server, execute:
+To run the server locally, execute:
 
 ```bash
 export FLASK_APP=app.py
@@ -59,7 +63,7 @@ GET '/movies'
 - Returns: all movies with its corresponding ids and total number of movies.
 
 ```
-Example:
+Example: https://agency-hurubi.herokuapp.com/movies
 {
     "movies": [
         {
@@ -84,7 +88,7 @@ GET '/actors'
 - Returns:all actors with its corresponding ids and total number of actors.
 
 ```
-Example:
+Example: https://agency-hurubi.herokuapp.com/actors
 
     "actors": [
         {
@@ -111,7 +115,7 @@ GET '/movies/<int:id>'
 - Returns: Current movie related id.
  
 ```
-Example:
+Example: https://agency-hurubi.herokuapp.com/movies/10
 {
 movies:{"id":10,"release_date":"Wed, 02 Oct 2019 00:00:00 GMT","title":"Joker"},"success":true}
 }
@@ -138,7 +142,7 @@ POST '/movies'
         - Created movie information.
 
 ```
-Example:
+Example: using Postman collection 
 {
     "movie": {
         "id": 10,
@@ -155,7 +159,7 @@ POST '/actors'
         - Created actor information.
 
 ```
-Example:
+Example: using Postman collection 
 {
     "actor": {
         "age": "44",
@@ -175,7 +179,7 @@ PATCH '/movies/<int:id>'
         - Updated movie information.
 
 ```
-Example: curl -X PATCH -H "Authorization: Bearer access_token" -H "Content-Type: application/json" -d '{"release_date": "9 oct 2020"}' http://127.0.0.1:5000/movies/9
+Example: Postman collection or curl -X PATCH -H "Authorization: Bearer access_token" -H "Content-Type: application/json" -d '{"release_date": "9 oct 2020"}' https://agency-hurubi.herokuapp.com/movies/9
 {
     "movies": {
         "id": 9,
@@ -192,7 +196,7 @@ PATCH '/actors/<int:id>'
         - Updated actor information.
 
 ```
-Example: curl -X PATCH -H "Authorization: Bearer access_token" -H "Content-Type: application/json" -d '{"age": "34"}' http://127.0.0.1:5000/actors/10
+Example: Postman collection or curl -X PATCH -H "Authorization: Bearer access_token" -H "Content-Type: application/json" -d '{"age": "34"}' https://agency-hurubi.herokuapp.com/actors/10
 {
 {
     "actors": {
@@ -215,7 +219,7 @@ DELETE '/movies/<int:id>'
         - Deleted movie id.
 
 ```
-Example:
+Example: using Postman collection 
 {
     "deleted Movie id": 5,
     "success": true
@@ -228,7 +232,7 @@ DELETE '/actors/<int:id>'
         - Deleted actor id.
 
 ```
-Example:
+Example: using Postman collection 
 {
     "deleted actor id": 6,
     "success": true
@@ -287,5 +291,6 @@ To run the tests, run
 
 ```
 createdb agency_test
+psql agency_test < dbagency.sql
 python test_app.py
 ```

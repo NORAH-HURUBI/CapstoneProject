@@ -4,7 +4,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 from app import create_app
 from models import setup_db, Movies, Actors
-import auth_tokens
+
 
 
 class AgencyTestCase(unittest.TestCase):
@@ -16,6 +16,8 @@ class AgencyTestCase(unittest.TestCase):
         self.client = self.app.test_client
         self.database_path = "postgres://{}:{}@{}/{}".format(
             'postgres', 'misk', 'localhost:5432', "agency_test")
+        self.director_jwt = os.environ['director_jwt']
+        self.producer_jwt = os.environ['producer_jwt']
         setup_db(self.app, self.database_path)
 
         # binds the app to the current context
@@ -57,7 +59,7 @@ class AgencyTestCase(unittest.TestCase):
             'release_date': "20 oct 2020",
         }
         res = self.client().post('/movies', json=test_data,
-                                 headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                 headers={'Authorization': f'Bearer {self.producer_jwt}'})
 
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 200)
@@ -70,7 +72,7 @@ class AgencyTestCase(unittest.TestCase):
         }
         res = self.client().post('/movies', json=test_data,
                                  headers={"Content-Type": "application/json",
-                                          "Authorization": "Bearer" + auth_tokens.director_jwt})
+                                          "Authorization": "Bearer" + self.director_jwt})
 
         data = json.loads(res.data)
         self.assertEqual(res.status_code, 401)
@@ -83,7 +85,7 @@ class AgencyTestCase(unittest.TestCase):
             'gender': 'female'
         }
         res = self.client().post('/actors', json=test_data,
-                                 headers={'Authorization': f'Bearer {auth_tokens.director_jwt}'})
+                                 headers={'Authorization': f'Bearer {self.director_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -95,7 +97,7 @@ class AgencyTestCase(unittest.TestCase):
             'release_date': "13 sep 2014"
         }
         res = self.client().post('/movies', json=test_data,
-                                 headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                 headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
@@ -106,7 +108,7 @@ class AgencyTestCase(unittest.TestCase):
             'age': '22'
         }
         res = self.client().post('/actors', json=test_data,
-                                 headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                 headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
@@ -118,7 +120,7 @@ class AgencyTestCase(unittest.TestCase):
         test_movie_id = test_movie.id
 
         res = self.client().delete(f'/movies/{test_movie_id}',
-                                   headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                   headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -130,7 +132,7 @@ class AgencyTestCase(unittest.TestCase):
         test_actor_id = test_actor.id
 
         res = self.client().delete(f'/actors/{test_actor_id}',
-                                   headers={'Authorization': f'Bearer {auth_tokens.director_jwt}'})
+                                   headers={'Authorization': f'Bearer {self.director_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -139,7 +141,7 @@ class AgencyTestCase(unittest.TestCase):
     def test_delete_movie_not_exist(self):
 
         res = self.client().delete('/movies/9980',
-                                   headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                   headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
@@ -148,7 +150,7 @@ class AgencyTestCase(unittest.TestCase):
     def test_delete_actor_not_exist(self):
 
         res = self.client().delete('/actors/8888',
-                                   headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                   headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 422)
@@ -164,7 +166,7 @@ class AgencyTestCase(unittest.TestCase):
         res = self.client().patch(
             f'/actors/{test_actor_id}',
             json=actor_update,
-            headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+            headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -176,7 +178,7 @@ class AgencyTestCase(unittest.TestCase):
         }
 
         res = self.client().patch('/actors/8888', json=test_data,
-                                  headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                  headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)
@@ -192,7 +194,7 @@ class AgencyTestCase(unittest.TestCase):
         }
 
         res = self.client().patch(f'/movies/{movie.id}', json=movie_update,
-                                  headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                  headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)
@@ -203,7 +205,7 @@ class AgencyTestCase(unittest.TestCase):
             'title': 'test'
         }
         res = self.client().patch('/movies/8888', json=test_data,
-                                  headers={'Authorization': f'Bearer {auth_tokens.producer_jwt}'})
+                                  headers={'Authorization': f'Bearer {self.producer_jwt}'})
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 404)

@@ -4,4 +4,5 @@ export AUTH0_DOMAIN = 'capstone-agency.us.auth0.com'
 export ALGORITHMS=['RS256']
 export API_AUDIENCE='agency'
 export FLASK_APP=app.py
-export DATABASE_URL = postgres://gotbvpsrtgxjjh:354154c1d42aa049584a2f3ea7848fc9205e38684e30a24d2cbb255c8deedbcf@ec2-34-230-167-186.compute-1.amazonaws.com:5432/dbphue21004mco
+export DATABASE_URL =  postgres://gcqfkyqthgetug:c91683288d073e48c12494a263858518ba9aa3a869730e73e4a9e6ab595db9c0@ec2-54-164-238-108.compute-1.amazonaws.com:5432/dbq582ofbm1elo
+export EXCITED = true

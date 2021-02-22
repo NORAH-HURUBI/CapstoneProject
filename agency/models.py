@@ -3,10 +3,11 @@ from sqlalchemy import Column, String, Integer, create_engine, DateTime
 from flask_sqlalchemy import SQLAlchemy
 import json
 from flask_migrate import Migrate
-database_name = "agency"
-database_path = "postgres://{}:{}@{}/{}".format(
-    'postgres', 'misk', 'localhost:5432', database_name)
 
+#database_name = "agency"
+#database_path = "postgres://{}:{}@{}/{}".format('postgres', 
+# 'misk', 'localhost:5432', database_name)
+database_path = os.environ['DATABASE_URL']
 db = SQLAlchemy()
 
 
